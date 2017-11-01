@@ -26,18 +26,20 @@ int Stack_Top(Stack *S)
 
 void Stack_Push(Stack *S, int d)
 {
-    if (S->size < STACK_MAX)
+    if (S->size < STACK_MAX) {
         S->data[S->size++] = d;
-    else
+    } else {
         fprintf(stderr, "Error: stack full\n");
+    }
 }
 
 
 void Stack_Pop(Stack *S)
 {
-    if (S->size == 0)
+    if (S->size == 0) {
         fprintf(stderr, "Error: stack empty\n");
-    else
+    } else {
         S->size--;
+    }
 }
 
