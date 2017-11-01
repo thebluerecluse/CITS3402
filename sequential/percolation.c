@@ -28,11 +28,11 @@ struct Perc_size start_point (int col_depth, int row_width, int **lattice, char 
 					max = ps.size;
 				}
 
-				if (ps.row == 1) {	//if ps.row is 1, column percolates
+				if (ps.row == 1) {			//if ps.row is 1, column percolates
 					col = 1;
 				}
 
-				if (ps.col == 1) {	//if ps.col is 1, row percolates
+				if (ps.col == 1) {			//if ps.col is 1, row percolates
 					row = 1;
 				}	
 			}
@@ -43,12 +43,12 @@ struct Perc_size start_point (int col_depth, int row_width, int **lattice, char 
 					max = ps.size;
 				}
 
-				if (ps.row == 1) {	//means col percolates
-					col = 1;	//so result.col records the column percolation
+				if (ps.row == 1) {			//means col percolates
+					col = 1;				//so result.col records the column percolation
 				}
 
-				if (ps.col == 1) {	//means row percolates
-					row = 1;	//so result.row records the row percolation
+				if (ps.col == 1) {			//means row percolates
+					row = 1;				//so result.row records the row percolation
 				}
 			}
 		}
@@ -146,11 +146,11 @@ void print_lattice (char s_or_b, int m, int n)
 
 int main (int argc, char *argv[])
 {
-    char s_or_b = '\0';          //site or bond percolation
-    double p = 0.0;                //probability to generate lattice
+    char s_or_b = '\0';         //site or bond percolation
+    double p = 0.0;             //probability to generate lattice
 	int choice = 0;             //percolate 0-horizontal, 1-vertical, 2-both
-	int	percoTF = 0;		//wheterh percolate or not
-	int	size = 0;		//size of the cluster
+	int	percoTF = 0;			//wheterh percolate or not
+	int	size = 0;				//size of the cluster
     struct  timeval start, end;
 
     if (argc != 4) {

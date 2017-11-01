@@ -51,13 +51,13 @@ extern void Stack_Pop(Stack *);
 //generate lattice according to the command provided
 //of site or bond
 extern int** 			generate_lattice(int , int );
-extern void 			fill_site_lattice(int **, int , int ,double);
-extern void 			fill_bond_lattice(int **, int , int ,double);
-extern void 			free_lattice(int **, int);
-extern struct Nbrs 		get_neighbours(int , int , int);
+extern void 			fill_site_lattice(int **, int , int ,double );
+extern void 			fill_bond_lattice(int **, int , int ,double );
+extern void 			free_lattice(int **, int );
+extern struct Nbrs 		get_neighbours(int , int , int );
 extern int			    cell_transition(int , int );
 extern struct perc_size	DFS_site(int , int , int , int );
-extern struct perc_size	start_point(int , int , int **, char);
-extern void 			percolate(int, char, int *, int *, double);
-extern struct perc_size DFS_bond(int , int , int , int);
-extern struct Bond_cell	get_bond_neighbours(int , int , int);
+extern struct perc_size	start_point(int , int , int **, char );
+extern void 			percolate(int, char, int *, int *, double );
+extern struct perc_size DFS_bond(int , int , int , int );
+extern int				is_bonded(int , int , int );
