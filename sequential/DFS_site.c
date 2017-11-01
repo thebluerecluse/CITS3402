@@ -70,7 +70,7 @@ struct Nbrs get_neighbours (int **lattice, int xy, int col_depth, int row_width)
         return cell;
 }
 
-struct perc_size DFS_site(int x, int y, int col_depth, int row_width)
+struct Perc_size DFS_site(int x, int y, int col_depth, int row_width)
 {
         struct Nbrs neighbours;         //Nbrs structure store the neighbours of current node
         struct Stack s;                 //stack for DFS
@@ -83,7 +83,7 @@ struct perc_size DFS_site(int x, int y, int col_depth, int row_width)
         int i = x;              //row coordinate of a site
         int j = y;              //column coordinate of a site
         int count = 0;          //count the cluster size
-        struct perc_size pdfs;  //be returned with percolated levels and size of cluster
+        struct Perc_size pdfs;  //be returned with percolated levels and size of cluster
 
         //perform dfs
         xy = cell_transition(x,y);
@@ -105,7 +105,7 @@ struct perc_size DFS_site(int x, int y, int col_depth, int row_width)
                         count++;
 
                         //north
-                        if (Nbrs.north > 0) {            //if the site is seeded and not visited
+                        if (neighbours.north > 0) {            //if the site is seeded and not visited
                         
                                 i = neighbours.north/row_width;
                                 j = neighbours.north%row_width;
@@ -115,7 +115,7 @@ struct perc_size DFS_site(int x, int y, int col_depth, int row_width)
                         }
 
                         //south
-                        if (Nbrs.south > 0) {             //if the site is seeded and not visited
+                        if (neighbours.south > 0) {             //if the site is seeded and not visited
                         
                                 i = neighbours.south/row_width;
                                 j = neighbours.south%row_width;
@@ -125,7 +125,7 @@ struct perc_size DFS_site(int x, int y, int col_depth, int row_width)
                         }
 
                         //west
-                        if (Nbrs.west > 0) {              //if the site is seeded and not visited
+                        if (neighbours.west > 0) {              //if the site is seeded and not visited
                         
                                 i = neighbours.west/row_width;
                                 j = neighbours.west%row_width;
@@ -135,7 +135,7 @@ struct perc_size DFS_site(int x, int y, int col_depth, int row_width)
                         }
 
 			//east
-                        if (Nbrs.east > 0) {              //if the site is seeded and not visited
+                        if (neighbours.east > 0) {              //if the site is seeded and not visited
                         
                                 i = neighbours.east/row_width;
                                 j = neighbours.east%row_width;
@@ -148,7 +148,7 @@ struct perc_size DFS_site(int x, int y, int col_depth, int row_width)
         
         pdfs.row = 1;
         pdfs.col = 1;
-        for (int i = 0; i < col_depth; i++) {
+        for (int i = 0 ; i < col_depth ; i++) {
                 if (flag_row[i] != 1) {
                         pdfs.row = 0;
 			//break;
@@ -156,7 +156,7 @@ struct perc_size DFS_site(int x, int y, int col_depth, int row_width)
         }
         free(flag_row);
         
-        for (int j = 0; j < row_width; j++) {
+        for (int j = 0 ; j < row_width ; j++) {
                 if (flag_col[j] != 1) {
                         pdfs.col = 0;
 			//break;

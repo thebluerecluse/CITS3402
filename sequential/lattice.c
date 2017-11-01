@@ -9,7 +9,7 @@
 int** generate_lattice(int m, int n)
 {
         int **lattice = calloc(m , sizeof(int*));
-        for (int i = 0; i < m; i++)
+        for (int i = 0 ; i < m ; i++)
         {
                 lattice[i] = calloc(n , sizeof(int));
         }
@@ -20,9 +20,9 @@ void fill_site_lattice (int **lattice, int m, int n, double p)
 {
         srand(time(NULL));
         double r = 0.0;
-        for (int i = 0; i < m; i++)
+        for (int i = 0 ; i < m ; i++)
         {
-                for (int j = 0; j < n; j++)
+                for (int j = 0 ; j < n ; j++)
                 {
                         r = (double)rand()/(double)RAND_MAX;
                         if (r < p)
@@ -95,7 +95,8 @@ void fill_bond_lattice(int **lattice, int m, int n, double p)
 
 void free_lattice (int **lattice, int col_depth)
 {
-        for (int i = 0; i < col_depth; i++)
+        for (int i = 0 ; i < col_depth ; i++) {
                 free(lattice[i]);
+        }
         free(lattice);
 }

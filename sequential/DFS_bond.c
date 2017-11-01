@@ -52,11 +52,13 @@ int is_bonded(int ij, int xy, int direction)
 				return 1;
 			} else {
 				return 0;
-			}	
+			}
+		default:
+			return 0;	
 	}
 }
 
-struct perc_size DFS_bond(int x, int y, int col_depth, int row_width)
+struct Perc_size DFS_bond(int x, int y, int col_depth, int row_width)
 {
         struct Nbrs neighbours; 	//Nbrs structure store the neighbours of current node
         struct Stack s;			//stack for DFS
@@ -69,7 +71,7 @@ struct perc_size DFS_bond(int x, int y, int col_depth, int row_width)
         int i = x;      	//row coordinate of a site
         int j = y;      	//column coordinate of a site
         int count = 0;  	//count the cluster size
-        struct perc_size pdfs; 	//be returned with percolated levels and size of cluster
+        struct Perc_size pdfs; 	//be returned with percolated levels and size of cluster
 
         //perform dfs
         xy = cell_transition(x,y);
@@ -77,47 +79,52 @@ struct perc_size DFS_bond(int x, int y, int col_depth, int row_width)
 	flag_col[y] = 1;
         Stack_Push(&s, xy);
         
-        while (s.size > 0)
-        {
+        while (s.size > 0) {
+
                 xy = Stack_Top(&s);
                 Stack_Pop(&s);
                 i = xy/row_width;
-                j = xy%row_width;
-                if (flag_lattice[i][j] != 1)
-                {
+		j = xy%row_width;
+		
+                if (flag_lattice[i][j] != 1) {
+
                         flag_lattice[i][j] = 1;         //mark the node popped
                         neighbours = get_neighbours(bond_lattice, xy, col_depth, row_width);
-                        count++;
+			count++;
+			
                         //north
-                        if (neighbours.north > 0 && is_bonded(xy, neighbours.north, 0) == 1)              //if the site is seeded and not visited
-                        {
+                        if (neighbours.north > 0 && is_bonded(xy, neighbours.north, 0) == 1) {      	//if the site is seeded and not visited
+                        
                                 i = neighbours.north/row_width;
                                 j = neighbours.north%row_width;
                                 Stack_Push(&s, neighbours.north);      	//put the node in stack
                                 flag_row[i] = 1;                        //record percolated level
                                 flag_col[j] = 1;                        //record percolated level
-                        }
+			}
+			
                         //south
-                        if (neighbours.south > 0 && is_bonded(xy, neighbours.south, 2) == 1)              //if the site is seeded and not visited
-                        {
+                        if (neighbours.south > 0 && is_bonded(xy, neighbours.south, 2) == 1) {    	//if the site is seeded and not visited
+                        
                                 i = neighbours.south/row_width;
                                 j = neighbours.south%row_width;
                                 Stack_Push(&s, neighbours.south);
                                 flag_row[i] = 1;
                                 flag_col[j] = 1;
-                        }
+			}
+			
                         //west
-                        if (neighbours.west > 0 && is_bonded(xy, neighbours.west, 4) == 1)               //if the site is seeded and not visited
-                        {
+                        if (neighbours.west > 0 && is_bonded(xy, neighbours.west, 4) == 1) {           	//if the site is seeded and not visited
+                        
                                 i = neighbours.west/row_width;
                                 j = neighbours.west%row_width;
                                 Stack_Push(&s, neighbours.west);
                                 flag_row[i] = 1;
                                 flag_col[j] = 1;
-                        }                        
+			}
+			
 			//east
-                        if (neighbours.east > 0 && is_bonded(xy, neighbours.east, 1) == 1)               //if the site is seeded and not visited
-                        {
+                        if (neighbours.east > 0 && is_bonded(xy, neighbours.east, 1) == 1) {      	//if the site is seeded and not visited
+
                                 i = neighbours.east/row_width;
                                 j = neighbours.east%row_width;
                                 Stack_Push(&s, neighbours.east);
@@ -129,7 +136,7 @@ struct perc_size DFS_bond(int x, int y, int col_depth, int row_width)
         
         pdfs.row = 1;
         pdfs.col = 1;
-        for (int i = 0; i < col_depth; i++)
+        for (int i = 0 ; i < col_depth ; i++)
         {
                 if (flag_row[i] != 1)
 		{
@@ -138,7 +145,7 @@ struct perc_size DFS_bond(int x, int y, int col_depth, int row_width)
 		}
         }
 	free(flag_row);
-        for (int j = 0; j < row_width; j++)
+        for (int j = 0 ; j < row_width ; j++)
         {
                 if (flag_col[j] != 1)
 		{

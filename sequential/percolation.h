@@ -10,7 +10,7 @@
 #include <sys/time.h>
 //#include <omp.h>
 
-#define N 64		//size of square lattice, needs to be at least 3
+#define N 5		//size of square lattice, needs to be at least 3
 #define STACK_MAX N*N
 
 int **flag_lattice;
@@ -54,10 +54,10 @@ extern int** 			generate_lattice(int , int );
 extern void 			fill_site_lattice(int **, int , int ,double );
 extern void 			fill_bond_lattice(int **, int , int ,double );
 extern void 			free_lattice(int **, int );
-extern struct Nbrs 		get_neighbours(int , int , int );
+extern struct Nbrs 		get_neighbours(int **, int , int , int );
 extern int			    cell_transition(int , int );
-extern struct perc_size	DFS_site(int , int , int , int );
-extern struct perc_size	start_point(int , int , int **, char );
+extern struct Perc_size	DFS_site(int , int , int , int );
+extern struct Perc_size	start_point(int , int , int **, char );
 extern void 			percolate(int, char, int *, int *, double );
-extern struct perc_size DFS_bond(int , int , int , int );
+extern struct Perc_size DFS_bond(int , int , int , int );
 extern int				is_bonded(int , int , int );

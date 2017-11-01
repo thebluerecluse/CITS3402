@@ -19,8 +19,8 @@ struct Perc_size start_point (int col_depth, int row_width, int **lattice, char 
 	int max = 0;
 
 	//start dfs
-	for (int i = 0; i < col_depth; i++) {
-		for (int j = 0; j < row_width; j++) {
+	for (int i = 0 ; i < col_depth ; i++) {
+		for (int j = 0 ; j < row_width ; j++) {
 			if (flag_lattice[i][j] != 1 && lattice[i][j] == 1 && s_or_b == 's') {
 
 				ps = DFS_site(i, j, col_depth, row_width); 
@@ -90,11 +90,12 @@ void percolate (int choice, char s_or_b, int *percoTF, int *size, double p)
 				printf("invalid percolation direction site percolation\n");
 				exit(-1);
 		}
+
 	} else if (s_or_b == 'b') {		//bond percolation
 
 		bond_lattice = generate_lattice(N, N);
 		flag_lattice = generate_lattice(N, N);
-		fill_bond_lattice(bond_lattice, N, N);
+		fill_bond_lattice(bond_lattice, N, N, p);
 
 		result = start_point(N, N, bond_lattice, s_or_b);
 		*size = result.size;
@@ -115,6 +116,7 @@ void percolate (int choice, char s_or_b, int *percoTF, int *size, double p)
 				printf("invalid percolation direction of bond percolation\n");
 				exit(-1);
 		}
+
 	} else {
 
 		printf("invalid percolation type\n");
@@ -125,18 +127,18 @@ void percolate (int choice, char s_or_b, int *percoTF, int *size, double p)
 void print_lattice (char s_or_b, int m, int n)
 {
 	if (s_or_b == 's') {
-		for (int i = 0; i < m; i++) {
-			for (int j = 0; j < n; j++) {
-				printf("%d", site_lattice[i][j]);
+		for (int i = 0 ; i < m ; i++) {
+			for (int j = 0 ; j < n ; j++) {
+				printf("%d ", site_lattice[i][j]);
 			}
 			printf("\n");
 		}
 	}
 
 	if (s_or_b == 'b') {
-		for (int i = 0; i < 2*m; i++) {
-			for (int j = 0; j < n; j++) {
-				printf("%d", bond_lattice[i][j]);
+		for (int i = 0 ; i < m ; i++) {
+			for (int j = 0 ; j < n ; j++) {
+				printf("%d ", bond_lattice[i][j]);
 			}
 			printf("\n");
 		}
@@ -151,7 +153,7 @@ int main (int argc, char *argv[])
 	int choice = 0;             //percolate 0-horizontal, 1-vertical, 2-both
 	int	percoTF = 0;			//wheterh percolate or not
 	int	size = 0;				//size of the cluster
-    struct  timeval start, end;
+    struct timeval start, end;
 
     if (argc != 4) {
         printf("arguments <executable> <'s' or 'b'> <probability> <0, horizontal, 1, vertical, 2, both>\n");
@@ -182,7 +184,7 @@ int main (int argc, char *argv[])
 	if (s_or_b == 'b') {
 		free_lattice(bond_lattice, N);
 	}
-
+	
 	free_lattice(flag_lattice, N);
 	
 	gettimeofday(&end, NULL);
