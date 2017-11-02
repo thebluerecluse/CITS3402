@@ -176,7 +176,7 @@ int main (int argc, char *argv[])
 		printf("your choice does not percolate in the direction expected(row, col, or both) and the maximum size of cluster is %d\n", size);
 	}
 
-	print_lattice(s_or_b, N, N);
+	//print_lattice(s_or_b, N, N);
 
 	if (s_or_b == 's') {
 		free_lattice(site_lattice, N);

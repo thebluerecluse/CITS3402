@@ -47,79 +47,86 @@ void fill_bond_lattice(int **lattice, int m, int n, double p)
         for(int i = 0 ; i < m ; i++) {
                 for(int j = 0 ; j < n ; j++) {
 
-                        int first = -1;
-                        int count = 0;
+                        int node = bond_lattice[i][j];
+                        int count;
 
-                        bond_id = cell_transition(i, j);
-                        neighbours = get_neighbours(bond_id, N, N);
-
+                        if (node == 15) {
+                                count = 3;
+                        } else if (node == 7 || node == 14 || node == 11 || node == 13) {
+                                count = 1;
+                        } else {
+                                count = 0;
+                        }
+                        
                         while (count < 2) {
+                                //fprintf(stderr, "debug1\n");
+                                count++;
 
                                 r = (double)rand()/(double)RAND_MAX;
                                 if (r < p) {
-
-                                        which = (double)rand()/(double)RAND_MAX * 4;
-                                        if (which >= 0 && which < 1 && first != 1) {
-
-                                                bond_partner = neighbours.north;
-                                                if (is_bonded(bond_id, bond_partner, 0) == 1) {
-                                                        continue;
-                                                } else {
-                                                        partner_x = bond_partner/N;
-                                                        partner_y = bond_partner%N;
-                                                        lattice[i][j] = lattice[i][j] + 8;
-                                                        lattice[partner_x][partner_y] = lattice[partner_x][partner_y] + 2;
+                                        bond_id = cell_transition(i, j);
+                                        neighbours = get_neighbours(bond_id, N, N);
+                                        int bonded = 0;
+                
+                                        while (bonded == 0) {
+                                                //fprintf(stderr, "debug2\n");                                                
+                                                which = (double)rand()/(double)RAND_MAX * 4;
+                                                if (which >= 0 && which < 1) {
+                
+                                                        bond_partner = neighbours.north;
+                                                        if (is_bonded(bond_id, bond_partner, 0) == 1) {
+                                                                continue;
+                                                        } else {
+                                                                partner_x = bond_partner/N;
+                                                                partner_y = bond_partner%N;
+                                                                lattice[i][j] = lattice[i][j] + 8;
+                                                                lattice[partner_x][partner_y] = lattice[partner_x][partner_y] + 2;
         
-                                                        first = 1;
-                                                        count++;   
-                                                }
-
-                                        } else if (which >= 1 && which < 2 && first != 2) {
-
-                                                bond_partner = neighbours.east;
-                                                if (is_bonded(bond_id, bond_partner, 1) == 1) {
-                                                        continue;
+                                                                bonded = 1;
+                                                        }
+                
+                                                } else if (which >= 1 && which < 2) {
+                                                        bond_partner = neighbours.east;
+                                                        if (is_bonded(bond_id, bond_partner, 1) == 1) {
+                                                                continue;
+                                                        } else {
+                                                                partner_x = bond_partner/N;
+                                                                partner_y = bond_partner%N;
+                                                                lattice[i][j] = lattice[i][j] + 4;
+                                                                lattice[partner_x][partner_y] = lattice[partner_x][partner_y] + 1;
+                                                                
+                                                                bonded = 1;
+                                                        }
+                
+                                                } else if (which >= 2 && which < 3) {
+                                                        bond_partner = neighbours.south;
+                                                        if (is_bonded(bond_id, bond_partner, 2) == 1) {
+                                                                continue;
+                                                        } else {
+                                                                partner_x = bond_partner/N;
+                                                                partner_y = bond_partner%N;
+                                                                lattice[i][j] = lattice[i][j] + 2;
+                                                                lattice[partner_x][partner_y] = lattice[partner_x][partner_y] + 8;
+        
+                                                                bonded = 1;  
+                                                        }
+                
                                                 } else {
-                                                        partner_x = bond_partner/N;
-                                                        partner_y = bond_partner%N;
-                                                        lattice[i][j] = lattice[i][j] + 4;
-                                                        lattice[partner_x][partner_y] = lattice[partner_x][partner_y] + 1;
-
-                                                        first = 2;
-                                                        count++;
-                                                }
-
-                                        } else if (which >= 2 && which < 3 && first != 3) {
-
-                                                bond_partner = neighbours.south;
-                                                if (is_bonded(bond_id, bond_partner, 2) == 1) {
-                                                        continue;
-                                                } else {
-                                                        partner_x = bond_partner/N;
-                                                        partner_y = bond_partner%N;
-                                                        lattice[i][j] = lattice[i][j] + 2;
-                                                        lattice[partner_x][partner_y] = lattice[partner_x][partner_y] + 8;
-
-                                                        first = 3;
-                                                        count++;
-                                                }
-
-                                        } else {
-
-                                                bond_partner = neighbours.west;
-                                                if (is_bonded(bond_id, bond_partner, 3) == 1) {
-                                                        continue;
-                                                } else {
-                                                        partner_x = bond_partner/N;
-                                                        partner_y = bond_partner%N;
-                                                        lattice[i][j] = lattice[i][j] + 1;
-                                                        lattice[partner_x][partner_y] = lattice[partner_x][partner_y] + 4;
-                                                        
-                                                        first = 4;
-                                                        count++;
-                                                } 
-
+                                                        bond_partner = neighbours.west;
+                                                        if (is_bonded(bond_id, bond_partner, 3) == 1) {
+                                                                continue;
+                                                        } else {
+                                                                partner_x = bond_partner/N;
+                                                                partner_y = bond_partner%N;
+                                                                lattice[i][j] = lattice[i][j] + 1;
+                                                                lattice[partner_x][partner_y] = lattice[partner_x][partner_y] + 4;
+        
+                                                                bonded = 1;
+                                                        } 
+                                                }        
                                         }
+                                } else {
+                                        continue;
                                 }
                         }
                 }
