@@ -10,7 +10,7 @@
 #include <sys/time.h>
 //#include <omp.h>
 
-#define N 5		//size of square lattice, needs to be at least 3
+#define N 4		//size of square lattice, needs to be at least 3
 #define STACK_MAX N*N
 
 int **flag_lattice;

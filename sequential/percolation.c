@@ -36,6 +36,7 @@ struct Perc_size start_point (int col_depth, int row_width, int **lattice, char 
 					row = 1;
 				}	
 			}
+			
 			if (flag_lattice[i][j] != 1 && lattice[i][j] != 0 && s_or_b == 'b') {
 
 				ps = DFS_bond(i, j, col_depth, row_width); 
@@ -175,15 +176,17 @@ int main (int argc, char *argv[])
 		printf("your choice does not percolate in the direction expected(row, col, or both) and the maximum size of cluster is %d\n", size);
 	}
 
-	//print_lattice(s_or_b, N, N);
+	print_lattice(s_or_b, N, N);
 
 	if (s_or_b == 's') {
 		free_lattice(site_lattice, N);
 	}
 
+	/*
 	if (s_or_b == 'b') {
 		free_lattice(bond_lattice, N);
 	}
+	*/
 	
 	free_lattice(flag_lattice, N);
 	
