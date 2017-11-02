@@ -54,7 +54,7 @@ extern int** 			generate_lattice(int , int );
 extern void 			fill_site_lattice(int **, int , int ,double );
 extern void 			fill_bond_lattice(int **, int , int ,double );
 extern void 			free_lattice(int **, int );
-extern struct Nbrs 		get_neighbours(int **, int , int , int );
+extern struct Nbrs 		get_neighbours(int , int , int );
 extern int			    cell_transition(int , int );
 extern struct Perc_size	DFS_site(int , int , int , int );
 extern struct Perc_size	start_point(int , int , int **, char );

@@ -89,11 +89,11 @@ struct Perc_size DFS_bond(int x, int y, int col_depth, int row_width)
                 if (flag_lattice[i][j] != 1) {
 
                         flag_lattice[i][j] = 1;         //mark the node popped
-                        neighbours = get_neighbours(bond_lattice, xy, col_depth, row_width);
+                        neighbours = get_neighbours(xy, col_depth, row_width);
 			count++;
 			
                         //north
-                        if (neighbours.north > 0 && is_bonded(xy, neighbours.north, 0) == 1) {      	//if the site is seeded and not visited
+                        if (flag_lattice[neighbours.north/N][neighbours.north%N] == 0 && is_bonded(xy, neighbours.north, 0) == 1) {      	//if the site is bonded and not visited
                         
                                 i = neighbours.north/row_width;
                                 j = neighbours.north%row_width;
@@ -103,7 +103,7 @@ struct Perc_size DFS_bond(int x, int y, int col_depth, int row_width)
 			}
 			
                         //south
-                        if (neighbours.south > 0 && is_bonded(xy, neighbours.south, 2) == 1) {    	//if the site is seeded and not visited
+                        if (flag_lattice[neighbours.south/N][neighbours.south%N] == 0 && is_bonded(xy, neighbours.south, 2) == 1) {    	//if the site is bonded and not visited
                         
                                 i = neighbours.south/row_width;
                                 j = neighbours.south%row_width;
@@ -113,7 +113,7 @@ struct Perc_size DFS_bond(int x, int y, int col_depth, int row_width)
 			}
 			
                         //west
-                        if (neighbours.west > 0 && is_bonded(xy, neighbours.west, 4) == 1) {           	//if the site is seeded and not visited
+                        if (flag_lattice[neighbours.west/N][neighbours.west%N] == 0 && is_bonded(xy, neighbours.west, 4) == 1) {           	//if the site is bonded and not visited
                         
                                 i = neighbours.west/row_width;
                                 j = neighbours.west%row_width;
@@ -123,7 +123,7 @@ struct Perc_size DFS_bond(int x, int y, int col_depth, int row_width)
 			}
 			
 			//east
-                        if (neighbours.east > 0 && is_bonded(xy, neighbours.east, 1) == 1) {      	//if the site is seeded and not visited
+                        if (flag_lattice[neighbours.east/N][neighbours.east%N] == 0 && is_bonded(xy, neighbours.east, 1) == 1) {      	//if the site is bonded and not visited
 
                                 i = neighbours.east/row_width;
                                 j = neighbours.east%row_width;

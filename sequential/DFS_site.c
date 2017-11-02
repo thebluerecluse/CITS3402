@@ -4,7 +4,7 @@
 
 #include "percolation.h"
 
-struct Nbrs get_neighbours (int **lattice, int xy, int col_depth, int row_width)
+struct Nbrs get_neighbours (int xy, int col_depth, int row_width)
 {
         int x = 0;
         int y = 0;
@@ -22,11 +22,14 @@ struct Nbrs get_neighbours (int **lattice, int xy, int col_depth, int row_width)
                 xx = x-1;
         }
 
+        cell.north = cell_transition(xx, y);
+/*
         if (lattice[xx][y] != 0 && flag_lattice[xx][y] == 0) {
                 cell.north = cell_transition(xx, y);
         } else {
                 cell.north = -1;
         }
+*/
 
         //south x+1, y remained
         if (x+1 >= col_depth) {
@@ -35,11 +38,7 @@ struct Nbrs get_neighbours (int **lattice, int xy, int col_depth, int row_width)
                 xx = x+1;
         }
 
-        if (lattice[xx][y] != 0 && flag_lattice[xx][y] == 0) {
-                cell.south = cell_transition(xx, y);
-        } else {
-                cell.south = -1;
-        }
+        cell.south = cell_transition(xx, y);
 
         //west y-1, x remained
         if (y-1 < 0) {
@@ -48,11 +47,7 @@ struct Nbrs get_neighbours (int **lattice, int xy, int col_depth, int row_width)
                 yy = y-1;
         }
 
-        if (lattice[x][yy] != 0 && flag_lattice[x][yy] == 0) {
-                cell.west = cell_transition(x, yy);
-        } else {
-                cell.west = -1;
-        }
+        cell.west = cell_transition(x, yy);
 
         //east y+1, x remained
         if (y+1 >= row_width) {
@@ -61,11 +56,7 @@ struct Nbrs get_neighbours (int **lattice, int xy, int col_depth, int row_width)
                 yy = y+1;
         }
 
-        if (lattice[x][yy] != 0 && flag_lattice[x][yy] == 0) {
-                cell.east = cell_transition(x, yy);
-        } else {
-                cell.east = -1;
-        }
+        cell.east = cell_transition(x, yy);
 
         return cell;
 }
@@ -101,11 +92,11 @@ struct Perc_size DFS_site(int x, int y, int col_depth, int row_width)
                 if (flag_lattice[i][j] != 1) {
 
                         flag_lattice[i][j] = 1;         //mark the node popped
-                        neighbours = get_neighbours(site_lattice, xy, col_depth, row_width);
+                        neighbours = get_neighbours(xy, col_depth, row_width);
                         count++;
 
                         //north
-                        if (neighbours.north > 0) {            //if the site is seeded and not visited
+                        if (site_lattice[neighbours.north/N][neighbours.north%N] == 1 && flag_lattice[neighbours.north/N][neighbours.north%N] == 0) {            //if the site is seeded and not visited
                         
                                 i = neighbours.north/row_width;
                                 j = neighbours.north%row_width;
@@ -115,7 +106,7 @@ struct Perc_size DFS_site(int x, int y, int col_depth, int row_width)
                         }
 
                         //south
-                        if (neighbours.south > 0) {             //if the site is seeded and not visited
+                        if (site_lattice[neighbours.south/N][neighbours.south%N] == 1 && flag_lattice[neighbours.south/N][neighbours.south%N] == 0) {             //if the site is seeded and not visited
                         
                                 i = neighbours.south/row_width;
                                 j = neighbours.south%row_width;
@@ -125,7 +116,7 @@ struct Perc_size DFS_site(int x, int y, int col_depth, int row_width)
                         }
 
                         //west
-                        if (neighbours.west > 0) {              //if the site is seeded and not visited
+                        if (site_lattice[neighbours.west/N][neighbours.west%N] == 1 && flag_lattice[neighbours.west/N][neighbours.west%N] == 0) {              //if the site is seeded and not visited
                         
                                 i = neighbours.west/row_width;
                                 j = neighbours.west%row_width;
@@ -135,7 +126,7 @@ struct Perc_size DFS_site(int x, int y, int col_depth, int row_width)
                         }
 
 			//east
-                        if (neighbours.east > 0) {              //if the site is seeded and not visited
+                        if (site_lattice[neighbours.east/N][neighbours.east%N] == 1 && flag_lattice[neighbours.east/N][neighbours.east%N] == 0) {              //if the site is seeded and not visited
                         
                                 i = neighbours.east/row_width;
                                 j = neighbours.east%row_width;
