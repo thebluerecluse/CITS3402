@@ -7,6 +7,8 @@ int * level_process(int send_count, int *sub_lattice, char sob)
 		int num_row;
 		if (send_count%SITE_C == 0)
 			 num_row = send_count/SITE_C;
+
+		omp_set_num_threads(NUM_THREADS);
 		#pragma omp parallel
 		#pragma omp for
 		for (int i = 0; i < num_row; i++)

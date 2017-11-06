@@ -4,7 +4,7 @@ int main (int argc, char *argv[])
 {
         char    sob = '\0';          //site or bond percolation
         double  p = 0.0;                //probability to generate lattice
- //       int     choice = 0;             //percolate 0-horizontal, 1-vertical, 2-both
+        int     choice = 0;             //percolate 0-horizontal, 1-vertical, 2-both
         struct  timeval start, end;
 
         if (argc != 4)
@@ -16,7 +16,7 @@ int main (int argc, char *argv[])
         {
                 sob = *argv[1];
                 p = atof(argv[2]);
-  //              choice = atoi(argv[3]);
+                choice = atoi(argv[3]);
         }
         //time consumed  
         gettimeofday(&start, NULL);
