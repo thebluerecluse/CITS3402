@@ -19,7 +19,7 @@ void generate_lattice(char sob)
 
 void fill_lattice(double p, char sob)
 {
-	//srand(time(NULL));
+	srand(time(NULL));
 	double r = 0.0;
 	if (sob == 's')
 	{

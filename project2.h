@@ -5,12 +5,12 @@
 #include <time.h>
 #include <sys/time.h>
 
-#define N		1024	//lattice size base
+#define N		64	//lattice size base
 #define SITE_R		N	//site lattice number of rows
 #define SITE_C		N	//number of columns
 #define BOND_R		2*N	//bond lattice is a merged lattice, number of rows is twice as number of columns
 #define BOND_C		N	//bond lattice number of columns
-#define NUM_THREADS 	1	//openmp number of threads
+#define NUM_THREADS 	4	//openmp number of threads
 #define MASTER 		0	//mpi process master
 #define SEND_DATA_TAG	2001	//mpi send tag
 #define RECV_DATA_TAG	2002	//mpi receive tage

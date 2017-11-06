@@ -76,7 +76,10 @@ int main (int argc, char *argv[])
 
         gettimeofday(&end, NULL);
         double delta = ((end.tv_sec - start.tv_sec) * 1000000u + end.tv_usec - start.tv_usec) / 1.e6;
-
-        printf("time consumed = %12.10f\n", delta);
+	
+	if (rank == MASTER)
+	{
+        	printf("time consumed = %12.10f\n", delta);
+	}
 }
 
